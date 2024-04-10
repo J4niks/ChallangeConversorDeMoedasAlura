@@ -1,5 +1,5 @@
 <h1 align="center">CHALLANGE CONVERSOR DE MOEDAS ALURA</h1>
-<img align="center" src="./README_FILES/ONE.png" alt="Logo personalizada one">
+<img align="center" src="/README_FILES/ONE.png" alt="Logo personalizada one">
 
 <p align="center">
     <a href="#sobre">Sobre</a> |
