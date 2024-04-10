@@ -7,20 +7,20 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApiConnection {
-    private String apikey = System.getenv("API_KEY");
+    private String apikey = System.getenv("API_KEY");//COLOQUE SUA API KEY AQUI OU ADICIONE .ENV AO SEU PROJETO
     private String exchangeUri = "https://v6.exchangerate-api.com/v6/";
 
-    public void Connection(String currency,String currencyPair, double value){
+    public void Connection(String currency,String currencyPair, double value) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(exchangeUri+apikey+"/pair/"+currency+"/"+currencyPair+"/"+value))
+                    .uri(URI.create(exchangeUri + apikey + "/pair/" + currency + "/" + currencyPair + "/" + value))
                     .build();
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
-            Exchange z = new Exchange();
-            z.printExchange(response.body());
+            Exchange currencyExchange = new Exchange();
+            currencyExchange.printExchange(response.body(), currency, currencyPair);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

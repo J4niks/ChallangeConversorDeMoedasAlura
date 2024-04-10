@@ -5,19 +5,24 @@ public class JsonTranslator {
     String conversionRate;
     String lastUpdate;
     String nextUpdate;
+    String currency;
+    String currencyPair;
 
-    public JsonTranslator(CurrencyExchange exchangeTranslate) {
+    public JsonTranslator(CurrencyExchange exchangeTranslate, String currency, String currencyPair) {
         this.conversionResult = exchangeTranslate.conversion_result();
         this.conversionRate = exchangeTranslate.conversion_rate();
         this.lastUpdate = exchangeTranslate.time_last_update_utc().substring(0,25);
         this.nextUpdate = exchangeTranslate.time_next_update_utc().substring(0,25);
+        this.currency = currency;
+        this.currencyPair = currencyPair;
     }
 
 
     @Override
     public String toString() {
         return "\n\n\n******************************************************"+
-                "\nConversão: " + conversionResult+
+                "\nConvertendo: "+currency+" para "+currencyPair+
+                "\n\nValor pós conversão: " + conversionResult+
                 "\nTaxa de conversão: " + conversionRate+
                 "\nUltima atualização: " + lastUpdate +
                 "\nPróxima atualização: " + nextUpdate+

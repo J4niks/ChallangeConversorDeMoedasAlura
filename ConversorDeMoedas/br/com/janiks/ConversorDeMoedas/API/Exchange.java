@@ -9,13 +9,13 @@ import com.google.gson.GsonBuilder;
 
 
 public class Exchange {
-    public void printExchange(String body) {
+    public void printExchange(String body, String currency, String currencyPair) {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .setPrettyPrinting()
                 .create();
         CurrencyExchange exchange = gson.fromJson(body, CurrencyExchange.class);
-        JsonTranslator currencyExchange = new JsonTranslator(exchange);
+        JsonTranslator currencyExchange = new JsonTranslator(exchange, currency, currencyPair);
         System.out.println(currencyExchange.toString());
     }
 }

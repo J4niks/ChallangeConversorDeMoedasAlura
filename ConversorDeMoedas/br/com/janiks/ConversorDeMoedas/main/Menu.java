@@ -6,17 +6,19 @@ import br.com.janiks.ConversorDeMoedas.API.ApiConnection;
 
 public class Menu {
     private String menu = """
-                ************************************
-                    1) Dólar =>> Peso Argentino
-                    2) Dólar =>> Peso Colombiano
-                    3) Dólar =>> Real Brasileiro
-                    4) Euro =>> Real Brasileiro
-                    5) Peso Argentino =>> Dólar
-                    6) Peso Colombiano =>> Dólar
-                    7) Real Brasileiro =>> Dólar
-                    8) Real Brasileiro =>> Euro
-                    9) Sair
-                ************************************
+                ********************************************
+                  Seja bem-vindo/a ao Conversor de Moeda =]
+                        1) Dólar =>> Peso Argentino
+                        2) Dólar =>> Peso Colombiano
+                        3) Dólar =>> Real Brasileiro
+                        4) Euro =>> Real Brasileiro
+                        5) Peso Argentino =>> Dólar
+                        6) Peso Colombiano =>> Dólar
+                        7) Real Brasileiro =>> Dólar
+                        8) Real Brasileiro =>> Euro
+                        9) Sair
+                  Escolha uma opção válida:
+                ********************************************
                 """;
     private String value = "Qual valor deseja fazer a conversão?";
     private String option = "Indisponivel";
@@ -78,8 +80,9 @@ public class Menu {
         try{
             System.out.println("\n\n"+value);
             Scanner sc = new Scanner(System.in);
-            return sc.nextDouble();
-        }catch (InputMismatchException e){
+            String inputValue = sc.next().replace(",",".");
+            return Double.parseDouble(inputValue);
+        }catch (InputMismatchException | NumberFormatException e){
             System.out.println("Entrada invalida!\n"+ e);
             return this.value();
         }catch (Exception e){
