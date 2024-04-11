@@ -16,7 +16,8 @@ public class Menu {
                         6) Peso Colombiano =>> Dólar
                         7) Real Brasileiro =>> Dólar
                         8) Real Brasileiro =>> Euro
-                        9) Sair
+                        9) Histórico de conversões
+                        10) Sair
                   Escolha uma opção válida:
                 ********************************************
                 """;
@@ -29,7 +30,7 @@ public class Menu {
     public void selection() {
         Scanner sc = new Scanner(System.in);
 
-        while (selected != 9) {
+        while (selected != 10) {
             try{
                 System.out.println(menu);
                 selected = sc.nextInt();
@@ -60,8 +61,12 @@ public class Menu {
                         option = "BRL-EUR";
                         break;
                     case 9:
+                        option = "historico";
+                        break;
+                    case 10:
                         option = "Sair";
                         break;
+
                     default:
                         option = "Indisponivel";
                 }
@@ -76,12 +81,13 @@ public class Menu {
         }
     }
 
-    private double value(){
+    private String value(){
         try{
             System.out.println("\n\n"+value);
             Scanner sc = new Scanner(System.in);
             String inputValue = sc.next().replace(",",".");
-            return Double.parseDouble(inputValue);
+            return inputValue;
+
         }catch (InputMismatchException | NumberFormatException e){
             System.out.println("Entrada invalida!\n"+ e);
             return this.value();
@@ -89,7 +95,6 @@ public class Menu {
             System.out.println("Erro desconhecido:\n "+ e);
             return this.value();
         }
-
     }
 
     private void selectedOption(String option){
@@ -98,8 +103,12 @@ public class Menu {
             selection();
         }else if (option.equalsIgnoreCase("sair")){
             System.out.println("Saindo...");
-        }else{
+        }else if(option.equalsIgnoreCase("historico")){
+            System.out.println("historico");
+        }
+        else{
             String[] parts = option.split("-");
+
             ApiConnection connect = new ApiConnection();
             connect.Connection(parts[0],parts[1], value());
         }
