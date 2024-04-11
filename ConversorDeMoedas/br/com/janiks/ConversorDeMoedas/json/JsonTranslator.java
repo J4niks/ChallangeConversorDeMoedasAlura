@@ -8,6 +8,7 @@ public class JsonTranslator {
     String currency;
     String currencyPair;
 
+    // Construtor da classe para traduzir os dados do objeto CurrencyExchange
     public JsonTranslator(CurrencyExchange exchangeTranslate, String currency, String currencyPair) {
         this.conversionResult = exchangeTranslate.conversion_result();
         this.conversionRate = exchangeTranslate.conversion_rate();
@@ -18,6 +19,8 @@ public class JsonTranslator {
     }
 
 
+
+    // Sobrescreve a representação da tradução em formato de string
     @Override
     public String toString() {
         return "\n\n\n******************************************************"+

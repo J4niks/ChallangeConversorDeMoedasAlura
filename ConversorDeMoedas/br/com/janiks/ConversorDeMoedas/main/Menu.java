@@ -3,6 +3,8 @@ package br.com.janiks.ConversorDeMoedas.main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import br.com.janiks.ConversorDeMoedas.API.ApiConnection;
+import br.com.janiks.ConversorDeMoedas.logs.Log;
+
 
 public class Menu {
     private String menu = """
@@ -24,15 +26,16 @@ public class Menu {
     private String value = "Qual valor deseja fazer a conversão?";
     private String option = "Indisponivel";
     private int selected = 0;
+    Log log = new Log();
 
-
-
+    // Método para exibir o menu e realizar as interações com o usuário
     public void selection() {
         Scanner sc = new Scanner(System.in);
 
         while (selected != 10) {
             try{
                 System.out.println(menu);
+                // Obtém a opção selecionada pelo usuário
                 selected = sc.nextInt();
 
                 switch (selected) {
@@ -70,6 +73,7 @@ public class Menu {
                     default:
                         option = "Indisponivel";
                 }
+                // Chama o método correspondente à opção selecionada
                 selectedOption(option);
             }catch (InputMismatchException e){
                 System.out.println("Entrada invalida!\n"+ e);
@@ -81,13 +85,13 @@ public class Menu {
         }
     }
 
+    // Método para solicitar e obter o valor da conversão
     private String value(){
         try{
             System.out.println("\n\n"+value);
             Scanner sc = new Scanner(System.in);
             String inputValue = sc.next().replace(",",".");
             return inputValue;
-
         }catch (InputMismatchException | NumberFormatException e){
             System.out.println("Entrada invalida!\n"+ e);
             return this.value();
@@ -97,6 +101,7 @@ public class Menu {
         }
     }
 
+    // Método para lidar com a opção selecionada pelo usuário
     private void selectedOption(String option){
         if (option.equalsIgnoreCase("indisponivel")){
             System.out.println("Opção indisponível");
@@ -104,13 +109,19 @@ public class Menu {
         }else if (option.equalsIgnoreCase("sair")){
             System.out.println("Saindo...");
         }else if(option.equalsIgnoreCase("historico")){
-            System.out.println("historico");
+            showHistory();
         }
         else{
             String[] parts = option.split("-");
-
             ApiConnection connect = new ApiConnection();
-            connect.Connection(parts[0],parts[1], value());
+            connect.Connection(parts[0],parts[1], value(),log);
+        }
+    }
+    // Método para mostrar o histórico de conversões
+    private void showHistory() {
+        System.out.println("Histórico de conversões:");
+        for (String entry : log.getLogList()) {
+            System.out.println(entry);
         }
     }
 }
